@@ -4,6 +4,12 @@
 	padding: 0 20px;
 }
 
+.about-container {
+	width: 400px;
+	margin-top: 30px;
+	padding: 0 20px;
+}
+
 .about {
 	width: 100%;
 }
