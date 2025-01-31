@@ -17,7 +17,7 @@ function createMainWindow() {
     height: 600,
     icon: './assets/Icon_256x256.png',
     resizable: isDev,
-    backgroundColor: 'gray'
+    backgroundColor: 'white'
   })
   // mainWindow.loadURL('https://www.base64decode.org/')
   // mainWindow.loadURL(`file://${__dirname}/app/index.html`);
