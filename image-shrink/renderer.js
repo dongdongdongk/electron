@@ -1,4 +1,4 @@
-document.getElementById('selectBtn').addEventListener('click', async () => {
-    const path = await window.electron.selectPath();
-    document.getElementById('output-path').innerText = `선택된 경로: ${path}`;
-  });
+window.electron.getOutputPath().then((paths) => {
+  document.getElementById('output-path').innerHTML =
+    `📂 다운로드 폴더: ${paths.downloads} <br> 📁 프로젝트 폴더: ${paths.project}`;
+});

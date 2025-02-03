@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu, globalShortcut, ipcMain } = require('electron');
 const path = require('path');
+const os = require('os');
 
 // Set env
 
@@ -27,6 +28,13 @@ function createMainWindow() {
     },
   })
 
+  ipcMain.handle('getOutputPath', async () => {
+    return {
+      downloads: path.join(os.homedir(), 'Downloads'),
+      project: __dirname
+    };
+  });
+
   if (isDev) {
     mainWindow.webContents.openDevTools()
   }
@@ -35,14 +43,6 @@ function createMainWindow() {
   mainWindow.loadFile('./app/index.html')
 }
 
-// IPC 핸들러: 렌더러에서 "select-path" 요청을 받으면 파일 대화상자 표시
-ipcMain.handle('select-path', async () => {
-  const result = await dialog.showOpenDialog(mainWindow, {
-    properties: ['openDirectory'], // 폴더 선택
-  });
-
-  return result.filePaths.length > 0 ? result.filePaths[0] : '경로가 선택되지 않았습니다.';
-});
 
 function createAboutWindow() {
   aboutWindow = new BrowserWindow({

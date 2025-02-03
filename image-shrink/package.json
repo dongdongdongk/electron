@@ -11,10 +11,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electorn": "^0.0.1-security",
     "nodemon": "^3.1.9"
   },
   "dependencies": {
+    "electron": "^34.0.2",
     "path": "^0.12.7"
   }
 }
