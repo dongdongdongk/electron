@@ -41,5 +41,11 @@
         </div>
     </div>
     <script src="../js/materialize.min.js"></script>
+
+    <script>
+        window.electron.getOutputPath().then((outputPath) => {
+            document.getElementById('output-path').innerText = outputPath;
+        });
+    </script>
 </body>
 </html>
