@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Menu, globalShortcut, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const os = require('os');
+const log = require('electron-log')
 // const imagemin = require('imagemin')
 // const imageminMozjpeg = require('imagemin-mozjpeg')
 // const imageminPngquant = require('imagemin-pngquant')
@@ -68,7 +69,7 @@ function createMainWindow() {
       shell.openPath(dest)
       mainWindow.webContents.send('image:done')
     } catch (error) {
-      console.log(error)
+      log.info(error)
     }
   }
 
