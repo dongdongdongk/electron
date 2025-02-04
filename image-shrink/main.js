@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, globalShortcut, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, globalShortcut, ipcMain, dialog } = require('electron');
 const path = require('path');
 const os = require('os');
 
@@ -33,6 +33,20 @@ function createMainWindow() {
       downloads: path.join(os.homedir(), 'Downloads'),
       project: __dirname
     };
+  });
+
+  ipcMain.handle('dialog:selectFile', async () => {
+    const result = await dialog.showOpenDialog({
+      properties: ['openFile'],
+      filters: [
+        { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'gif'] }
+      ]
+    });
+  
+    if (!result.canceled) {
+      return result.filePaths[0];
+    }
+    return null;
   });
 
   if (isDev) {
