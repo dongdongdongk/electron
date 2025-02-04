@@ -32,4 +32,16 @@ form.addEventListener('submit', (e) => {
   const quality = slider.value;
   console.log('제출된 파일:', filePath);
   console.log('설정된 품질:', quality);
+
+    // main 프로세스에 이미지 압축 요청 보내기
+    window.electron.minimizeImage({
+      imgPath: filePath,
+      quality: parseInt(quality, 10)
+    });
+});
+
+window.electron.onImageDone(() => {
+  M.toast({
+    html: `이미지를 ${slider.value}% 퀄리티로 리사이즈 했습니다.`
+  })
 });

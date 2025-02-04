@@ -1,8 +1,13 @@
-const { app, BrowserWindow, Menu, globalShortcut, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, Menu, globalShortcut, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const os = require('os');
-
+// const imagemin = require('imagemin')
+// const imageminMozjpeg = require('imagemin-mozjpeg')
+// const imageminPngquant = require('imagemin-pngquant')
+// const slash = require('slash')
 // Set env
+
+
 
 process.env.NODE_ENV = 'dev'
 
@@ -35,6 +40,38 @@ function createMainWindow() {
     };
   });
 
+  ipcMain.on('image:minimize', (e, option) => {
+    option.dest = path.join(os.homedir(), 'imageshrink')
+    shrinkImage(option)
+  })
+
+  async function shrinkImage({ imgPath, quality, dest }) {
+    try {
+
+      const { default: imagemin } = await import('imagemin');
+      const { default: imageminMozjpeg } = await import('imagemin-mozjpeg');
+      const { default: imageminPngquant } = await import('imagemin-pngquant');
+      const slash = (await import('slash')).default;
+
+      const pngQuality = quality / 100
+
+      const files = await imagemin([slash(imgPath)], {
+        destination: dest,
+        plugins: [
+          imageminMozjpeg({ quality }),
+          imageminPngquant({
+            quality: [pngQuality, pngQuality]
+          })
+        ]
+      })
+      console.log(files)
+      shell.openPath(dest)
+      mainWindow.webContents.send('image:done')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   ipcMain.handle('dialog:selectFile', async () => {
     const result = await dialog.showOpenDialog({
       properties: ['openFile'],
@@ -42,7 +79,7 @@ function createMainWindow() {
         { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'gif'] }
       ]
     });
-  
+
     if (!result.canceled) {
       return result.filePaths[0];
     }
