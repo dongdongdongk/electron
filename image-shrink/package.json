@@ -6,15 +6,57 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "dev": "nodemon --exec electron ."
+    "dev": "nodemon --exec electron .",
+    "deploy:osx": "electron-builder --mac",
+    "deploy:win": "npm run deploy:win32 && npm run deploy:win64",
+    "deploy:win32": "electron-builder --win nsis:ia32",
+    "deploy:win64": "electron-builder --win nsis:x64"
+  },
+  "build": {
+    "productName": "이미지 압축기",
+    "appId": "net.jetalab.ex.startelectron",
+    "asar": false,
+    "icon": "./assets/win/icon.ico",
+    "mac": {
+      "target": [
+        "default"
+      ]
+    },
+    "dmg": {
+      "title": "Start Electron"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "./assets/win/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "perMachine": false,
+      "installerIcon": "./assets/win/icon.ico"
+    },
+    "directories": {
+      "buildResources": "./resources/installer/",
+      "output": "./dist/",
+      "app": "."
+    }
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "electron": "^34.0.2",
+    "electron-builder": "^25.1.8"
   },
   "dependencies": {
-    "electron": "^34.0.2",
     "electron-log": "^5.3.0",
     "imagemin": "^9.0.0",
     "imagemin-mozjpeg": "^10.0.0",

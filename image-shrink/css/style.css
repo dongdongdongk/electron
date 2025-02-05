@@ -1,6 +1,6 @@
 .container {
 	width: 400px;
-	margin-top: 35px;
+	margin-top: 30px;
 	padding: 0 20px;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .output {
-	margin-top: 40px;
+	margin-top: 30px;
 }
 
 #output-path {
