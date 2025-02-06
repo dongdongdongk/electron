@@ -41,8 +41,7 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": false,
       "createDesktopShortcut": true,
-      "perMachine": false,
-      "installerIcon": "./assets/win/icon.ico"
+      "perMachine": false
     },
     "directories": {
       "buildResources": "./resources/installer/",
