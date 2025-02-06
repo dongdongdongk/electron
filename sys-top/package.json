@@ -1,15 +1,16 @@
 {
-  "name": "electron-starter",
-  "productName": "APP NAME",
+  "name": "systop",
+  "productName": "systop",
   "version": "1.0.0",
   "description": "Simple starter package for Electron apps",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "dev": "nodemon --exec electron .",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
-    "package-win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"APP NAME\"",
-    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=false --out=release-builds"
+    "deploy:osx": "electron-builder --mac",
+    "deploy:win": "npm run deploy:win32 && npm run deploy:win64",
+    "deploy:win32": "electron-builder --win nsis:ia32",
+    "deploy:win64": "electron-builder --win nsis:x64"
   },
   "keywords": [
     "Electron"
@@ -17,11 +18,11 @@
   "author": "Brad Traversy",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^8.2.5",
-    "electron-packager": "^14.2.1",
-    "nodemon": "^2.0.3"
+    "electron": "^34.0.2",
+    "electron-builder": "^25.1.8",
+    "nodemon": "^3.1.9"
   },
   "dependencies": {
-    "electron-log": "^4.1.2"
+    "electron-log": "^5.3.0"
   }
 }
