@@ -84,4 +84,14 @@ ipcMain.handle("getComInfo", async () => {
   return { model: cpuModel, compName: compName, osInfo: osInfo, memInfo: memInfo}; // 정보를 반환
 });
 
+
+ipcMain.handle("getCpuUsage", async () => {
+  const usage = await cpu.usage(); // CPU 사용량 가져오기
+  return parseFloat(usage.toFixed(2)); // 소수점 2째 자리까지 표시
+});
+
+ipcMain.handle("getUptime", async () => {
+  return Math.floor(os.uptime()); // 소수점 없이 정수 값만 반환 시스템 가동 시간
+});
+
 app.allowRendererProcessReuse = true;
