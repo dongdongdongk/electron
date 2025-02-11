@@ -14,7 +14,7 @@ async function updateStats() {
     const uptime = await window.electron.getUptime();
 
     document.getElementById('cpu-usage').innerText = `${cpuUsage}%`;
-    document.getElementById('cpu-free').innerText = `${100 - parseFloat(cpuUsage.toFixed(2))}%`;
+    document.getElementById('cpu-free').innerText = `${(100 - cpuUsage).toFixed(2)}%`;
     document.getElementById('sys-uptime').innerText = formatUptime(uptime);
 
     // 프로그레스 바 업데이트
