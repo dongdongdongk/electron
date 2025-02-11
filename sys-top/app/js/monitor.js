@@ -14,7 +14,7 @@ async function updateStats() {
     const uptime = await window.electron.getUptime();
 
     document.getElementById('cpu-usage').innerText = `${cpuUsage}%`;
-    document.getElementById('cpu-free').innerText = `${100 - cpuUsage}%`;
+    document.getElementById('cpu-free').innerText = `${100 - parseFloat(cpuUsage.toFixed(2))}%`;
     document.getElementById('sys-uptime').innerText = formatUptime(uptime);
 
     // 프로그레스 바 업데이트
@@ -23,6 +23,8 @@ async function updateStats() {
 
 // 2초마다 CPU 및 시스템 가동 시간 업데이트
 setInterval(updateStats, 2000);
+// 시작 시 바로 업데이트
+updateStats();
 
 // Uptime을 시, 분, 초 형식으로 변환하는 함수
 function formatUptime(seconds) {
