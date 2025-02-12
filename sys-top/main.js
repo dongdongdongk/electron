@@ -50,6 +50,7 @@ function createMainWindow() {
 }
 
 app.on("ready", () => {
+  console.log(app.getPath('userData'));
   createMainWindow();
 
   const mainMenu = Menu.buildFromTemplate(menu);

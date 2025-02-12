@@ -25,6 +25,7 @@ function parseDataFile(filePath, defaults) {
     try {
         return JSON.parse(fs.readFileSync(filePath))
     } catch (error) {
+        console.log("파일 읽기 오류:", error);
         return defaults
     }
 }

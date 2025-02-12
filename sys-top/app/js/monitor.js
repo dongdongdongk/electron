@@ -33,8 +33,8 @@ async function updateStats() {
   // 알람 
   if (cpuUsage >= cpuOverload && runNotify(alertFrequency)) {
     notifyUser({
-      title: '알람 테스트',
-      body: `CPU 오버${cpuOverload}%`,
+      title: 'CPU 과부하 알림',
+      body: `CPU 사용량이${cpuOverload}%를 초과하였습니다.`,
       icon: '../../assets/icons/win/icon.png'
     })
 
