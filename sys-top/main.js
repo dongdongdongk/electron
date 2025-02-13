@@ -53,6 +53,10 @@ app.on("ready", () => {
   console.log(app.getPath('userData'));
   createMainWindow();
 
+  mainWindow.webContents.on('dom-ready', () => {
+    mainWindow.webContents.send('settings:get', store.get('settings'))
+  })
+
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
 });
@@ -105,6 +109,15 @@ ipcMain.handle("getCpuUsage", async () => {
 
 ipcMain.handle("getUptime", async () => {
   return Math.floor(os.uptime()); // 소수점 없이 정수 값만 반환 시스템 가동 시간
+});
+
+// 설정 저장하기
+ipcMain.on("settings:set", (event, newSettings) => {
+  store.set("settings", newSettings);
+  console.log("새 설정 저장됨:", newSettings);
+
+  // 변경된 설정을 렌더러 프로세스로 다시 보내기 (즉시 UI 반영)
+  mainWindow.webContents.send("settings:get", store.get("settings"));
 });
 
 app.allowRendererProcessReuse = true;
