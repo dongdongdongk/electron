@@ -12,6 +12,11 @@ window.electron.getComInfo().then((data) => {
   console.log(data);
 });
 
+window.electron.on('nav:toggle', () => {
+  nav = document.getElementById('nav')
+  nav.classList.toggle('hide'); // 🏆 'hide' 클래스를 추가/제거하여 표시 토글
+});
+
 // CPU 및 Uptime 업데이트 함수
 async function updateStats() {
   const cpuUsage = await window.electron.getCpuUsage();
